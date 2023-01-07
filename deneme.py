@@ -39,7 +39,7 @@ def veriekle():
 
 #listeleme
 def getir ():
-  imlec.execute("select*form Department")
+  imlec.execute("select*from Department")
   liste=imlec.fetchall()
   #bunu yaparsan yan yana olur
   # print(liste)
