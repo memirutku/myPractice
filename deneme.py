@@ -1,5 +1,6 @@
 # myapp/views.py
 import pypyodbc
+from pyscript import Element
 
  # Veritabanı bağlantısını aç
 DataBase = pypyodbc.connect('Driver={SQL Server};'
