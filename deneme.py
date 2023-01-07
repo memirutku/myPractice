@@ -12,7 +12,6 @@ imlec=DataBase.cursor()
 def oluştur():
   imlec.execute('create table Mustafa(denemeid tinyint,denemead varchar(28))')
   DataBase.commit()
-"""
 
 
 
@@ -35,7 +34,6 @@ def veriekle():
   imlec.commit()
 
 
-"""
 
 
 #listeleme
@@ -49,7 +47,7 @@ def getir ():
      print(i)
 
 
-"""
+
 
 #güncelleme
 def guncelle():
@@ -65,8 +63,7 @@ def sil():
   imlec.commit()
 
 
-eriekid=int(input("ders idsi girin"))
-ders=input("ders adı giriniz")
-vle(id,ders)"""
+
+
 
 DataBase.close()
