@@ -14,7 +14,7 @@ def oluştur():
   DataBase.commit()
 
 
-
+"""
 #dışarıdan ekleme için
 #ekleme sqlite da @p1 ve @p2 iken burada ? var
 def veriekle(id,ders):
@@ -33,7 +33,7 @@ def veriekle():
   imlec.execute('insert into dersler values(1,'mustafa')')
   imlec.commit()
 
-
+"""
 
 
 #listeleme
@@ -47,7 +47,7 @@ def getir ():
      print(i)
 
 
-
+"""
 
 #güncelleme
 def guncelle():
@@ -62,7 +62,7 @@ def sil():
   imlec.execute("delete from mustafa where denemeid='1'")
   imlec.commit()
 
-
+"""
 
 
 
