@@ -27,46 +27,51 @@ yazi_girisi.send_keys(Keys.ENTER)#entere basma
 tıkla=browser.find_element(By.CLASS_NAME,"haz7je")#çıkan ilk linki seçme
 tıkla.click()#linke basma
 
-time.sleep(20)#pop up uzun sürede açıldığı için burada bekliyoruz
+time.sleep(30)#pop up uzun sürede açıldığı için burada bekliyoruz
 
-#pop up kapatmak için
+#pop up kapatmak için #try except eklenebilir buraya
 pop_up=browser.find_element(By.CLASS_NAME,"r-4qtqp9.r-yyyyoo.r-z80fyv.r-dnmrzs.r-bnwqim.r-1plcrui.r-lrvibr.r-19wmn03")
 pop_up.click()
 
 
-##hazır kod googleden scrollamak için (aşağı doğru inme)
-lastHeight=browser.execute_script("return document.body.scrollHeight")
-i=0
-while i<1: # sonsuza kadar gitmesini engellemek için
-    browser.execute_script("window.scrollTo(0,document.body.scrollHeight);")
-    time.sleep(3)
-    newHeight=browser.execute_script("return document.body.scrollHeight")
-    if newHeight==lastHeight:
+a=0
+while a<2:#bunu yapma nedeni de her scrolldan sonra veriyi çekebilme
+
+  lastHeight=browser.execute_script("return document.body.scrollHeight")
+
+
+  page_source=browser.page_source #browser değişkeniyle girdiğimiz için .page_source sayfanın kaynağını getiriyor
+  soup = BeautifulSoup(page_source,"html.parser")#normalde beatifulSoup da .content koyuyoruz ama browser.page_source ile o işlemi yapmış oluyoruz zaten
+  #print(soup)
+
+
+  tweetler=soup.find_all("div",attrs={"data-testid":"cellInnerDiv"})#bütün twitleri almak için find_all diyoruz yoksa sadece find #ilk kısımda neyden ayıracağımızı(div olan kısım) #attrs kısmında ayırt edici özelliğini yazıyoruz
+
+
+  for tweet in tweetler:
+      twit=(tweet.find("div",attrs={"class":"css-901oao r-1nao33i r-37j5jr r-a023e6 r-16dba41 r-rjixqe r-bcqeeo r-bnwqim r-qvutc0"}).text)#seleniumda boşluk yerine nokta koyarak ile alabiliyorken. beatifulsoupda böyle bir şey yok.
+      begeni=(tweet.find("div",attrs={"data-testid":"like"}).text)
+      yorum=(tweet.find("div",attrs={"data-testid":"reply"}).text)
+      retweet=(tweet.find("div",attrs={"data-testid":"retweet"}).text)
+      print(f"tweet: {twit}" )
+      print(f"begeni: {begeni}")
+      print(f"yorum: {yorum}")
+      print(f"retweet: {retweet}")
+
+##scroll kodu googleden
+#   scroll çok fazla aşağı doğru gidiyor scroll kısmında
+  i=0
+  while i<1: # sonsuza kadar gitmesini engellemek için
+     browser.execute_script("window.scrollTo(0,document.body.scrollHeight);")
+     time.sleep(3)
+     newHeight=browser.execute_script("return document.body.scrollHeight")
+     if newHeight==lastHeight:
         break
-    else:
+     else:
         lastHeight=newHeight
-    i+=1
+     i+=1
 ##
-
-
-page_source=browser.page_source #browser değişkeniyle girdiğimiz için .page_source sayfanın kaynağını getiriyor
-soup = BeautifulSoup(page_source,"html.parser")#normalde beatifulSoup da .content koyuyoruz ama browser.page_source ile o işlemi yapmış oluyoruz zaten
-#print(soup)
-
-
-tweetler=soup.find_all("div",attrs={"data-testid":"cellInnerDiv"})#bütün twitleri almak için find_all diyoruz yoksa sadece find #ilk kısımda neyden ayıracağımızı(div olan kısım) #attrs kısmında ayırt edici özelliğini yazıyoruz
-
-
-for tweet in tweetler:
-    twit=(tweet.find("div",attrs={"class":"css-901oao r-1nao33i r-37j5jr r-a023e6 r-16dba41 r-rjixqe r-bcqeeo r-bnwqim r-qvutc0"}).text)#seleniumda boşluk yerine nokta koyarak ile alabiliyorken. beatifulsoupda böyle bir şey yok.
-    begeni=(tweet.find("div",attrs={"data-testid":"like"}).text)
-    yorum=(tweet.find("div",attrs={"data-testid":"reply"}).text)
-    retweet=(tweet.find("div",attrs={"data-testid":"retweet"}).text)
-    print(f"tweet: {twit}" )
-    print(f"begeni: {begeni}")
-    print(f"yorum: {yorum}")
-    print(f"retweet: {retweet}")
-
+  a+=1
 
 
 
