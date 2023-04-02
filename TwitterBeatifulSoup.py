@@ -110,7 +110,7 @@ print("for döngüsü bitti")
 
 
 
-
+#elindeki twit sayısına bak ona göre while loopu
 
 
 #sorular
